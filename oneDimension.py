@@ -35,5 +35,3 @@ def countClusters(grid):
     print(clusterCount)
     print(sizeOfCluster)
     print(modifiedGrid)
-
-countClusters(gridgenerator.oneDimensionRandom(0.6, 12))

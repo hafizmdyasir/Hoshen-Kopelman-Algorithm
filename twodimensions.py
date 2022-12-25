@@ -81,7 +81,7 @@ def hoshenKopelman():
 
 
 # The job of reduceMatrix() is to replace the values in grid with the root labels
-def reduceMatrixAndMass(): 
+def renameClusters(): 
     global grid
 
     for i, j in product(range(len(grid)), range(len(grid[0]))):
@@ -90,7 +90,7 @@ def reduceMatrixAndMass():
 
 
 # For counting the clusters, just count the number of keys that have positive values.
-def countClusters():
+def countDistinctClusters():
     clusterCount = 0
     for key in clusterAliases.keys():
         if clusterAliases[key] > 0:
