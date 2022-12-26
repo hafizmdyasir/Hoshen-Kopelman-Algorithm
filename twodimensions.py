@@ -1,5 +1,9 @@
 from itertools import product
+from gridgenerator import print2DMatrix
 
+
+# The variable which holds the entire matrix.
+grid = []
 
 # The running variable denotes the largest cluster number encountered.
 runningVariable = 2
@@ -57,7 +61,7 @@ def unifyClusters(above, left):
 # The heart of the Hoshen-Kopelman algorithm
 def hoshenKopelman():
     global grid
-    
+
     for i, j in product(range(len(grid)), range(len(grid[0]))):
         # If the site is empty, do nothing
         if grid[i][j] == 0:
@@ -97,3 +101,23 @@ def countDistinctClusters():
             clusterCount += 1
 
     return clusterCount
+
+
+def countClusters(matrix):
+    global grid
+    grid = [[1 if item else 0 for item in x] for x in matrix]
+
+    print("The matrix you have entered is:")
+    print2DMatrix(grid)
+    print("\nStarting labelling... ")
+    rename = str(input("Would you like to perform renaming of clusters after labelling is complete? (Y/N)... ")) in ('y', 'Y')
+    hoshenKopelman()
+    if rename:
+        renameClusters()
+    clusterCount = countDistinctClusters()
+
+    print("Labelling complete. The matrix is now:\n")
+    print2DMatrix(grid)
+    print("\nEncountered {0} clusters of which, {1} were distinct. Their sizes and aliases are as follows:\n\t{2}".format(max(map(max, grid)), clusterCount, clusterAliases))
+    print("\n")
+    delay = input("Press enter to continue...")
