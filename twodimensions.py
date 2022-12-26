@@ -104,8 +104,13 @@ def countDistinctClusters():
 
 
 def countClusters(matrix):
+    global runningVariable
+    global clusterAliases
     global grid
+
     grid = [[1 if item else 0 for item in x] for x in matrix]
+    clusterAliases.clear()
+    runningVariable = 2
 
     print("The matrix you have entered is:")
     print2DMatrix(grid)
