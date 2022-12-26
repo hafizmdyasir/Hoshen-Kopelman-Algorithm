@@ -5,7 +5,9 @@ def countClusters(grid):
     
     clusterCount = 0
     sizeOfCluster = {}
-    modifiedGrid = [int(x==1) for x in grid]
+    modifiedGrid = [1 if x else 0 for x in grid]
+
+    print("\nThe matrix you have entered is:\n\t{0}\n\nStarting labelling...".format(modifiedGrid))
 
     for i in range(len(grid)):
         # If the site isn't occupied, we can simply continue to the next one.
@@ -31,7 +33,7 @@ def countClusters(grid):
         sizeOfCluster[clusterCount] = 1
         modifiedGrid[i] = clusterCount
 
-    print(grid)
-    print(clusterCount)
-    print(sizeOfCluster)
-    print(modifiedGrid)
+    print("Labelling complete. The matrix is now:\n\t{0}\n\nEncountered {1} clusters of sizes as follows:\n\t{2}".format(modifiedGrid, clusterCount, sizeOfCluster))
+
+    print("\n")
+    delay = input("Press enter to continue... ")
