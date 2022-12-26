@@ -1,5 +1,4 @@
 from random import uniform
-from math import floor, log10
 
 
 #A helper method to print a 2D matrix
