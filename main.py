@@ -1,5 +1,7 @@
-import gridgenerator
 from os import system, name
+import gridgenerator
+import oneDimension
+import twodimensions
 
 
 clearConsole = lambda: system('cls' if name in ('nt', 'dos') else 'clear')
@@ -24,7 +26,7 @@ def showMainScreen():
         return choice
 
 
-choiceDictionary = {
+gridDictionary = {
     1.1: gridgenerator.oneDimensionRandom, 1.2: gridgenerator.oneDimensionInput,
     2.1: gridgenerator.twoDimensionRandom, 2.2: gridgenerator.twoDimensionInput
 }
@@ -38,8 +40,12 @@ while True:
     if choice == 3:
         break
 
-    print(choiceDictionary.get(choice)())
-    print("\n")
+    matrix = gridDictionary.get(choice)()
+    if choice in (1.1, 1.2):
+        oneDimension.countClusters(matrix)
+    else:
+        twodimensions.countClusters(matrix)
+
     restart = str(input("Program has finished execution. Would you like to restart? (Y/N)... "))
     if restart not in ('Y', 'y'):
         break
