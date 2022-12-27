@@ -5,16 +5,12 @@ from gridgenerator import print2DMatrix
 # The variable which holds the entire matrix.
 grid = []
 
-# The running variable denotes the largest cluster number encountered.
-runningVariable = 2
-
 # In clusterAliases, the value corresponding to a key is the negative of the cluster label to which, it belongs. 
 # A positive value implies root label.
 clusterAliases = {}
 
 # To create a cluster, we increase the runningVariable by 1, and set the value corresponding to it in clusterSizes equal to 1. Return the label of the newly created cluster, which is basically runningVariable.
-def createCluster():
-    global runningVariable
+def createCluster(runningVariable):
     global clusterAliases
 
     runningVariable += 1
@@ -59,8 +55,10 @@ def unifyClusters(above, left):
 
 
 # The heart of the Hoshen-Kopelman algorithm
-def hoshenKopelman():
-    global grid
+def hoshenKopelman(grid):
+
+    # The running variable denotes the largest cluster number encountered.
+    runningVariable = 2
 
     for i, j in product(range(len(grid)), range(len(grid[0]))):
         # If the site is empty, do nothing
@@ -72,7 +70,8 @@ def hoshenKopelman():
         occupiedLeft = False if j == 0 else (grid[i][j-1] != 0)
 
         if (not occupiedAbove) and (not occupiedLeft):
-            grid[i][j] = createCluster()
+            runningVariable = createCluster(runningVariable)
+            grid[i][j] = runningVariable
 
         # XOR is true when only one is true
         elif occupiedAbove ^ occupiedLeft:
@@ -85,9 +84,7 @@ def hoshenKopelman():
 
 
 # The job of reduceMatrix() is to replace the values in grid with the root labels
-def renameClusters(): 
-    global grid
-
+def renameClusters(grid):
     for i, j in product(range(len(grid)), range(len(grid[0]))):
         if grid[i][j] != 0:  
             grid[i][j] = findOriginal(grid[i][j])
@@ -106,7 +103,6 @@ def countDistinctClusters():
 def countClusters(matrix):
     global runningVariable
     global clusterAliases
-    global grid
 
     grid = [[1 if item else 0 for item in x] for x in matrix]
     clusterAliases.clear()
@@ -116,9 +112,9 @@ def countClusters(matrix):
     print2DMatrix(grid)
     print("\nStarting labelling... ")
     rename = str(input("Would you like to perform renaming of clusters after labelling is complete? (Y/N)... ")) in ('y', 'Y')
-    hoshenKopelman()
+    hoshenKopelman(grid)
     if rename:
-        renameClusters()
+        renameClusters(grid)
     clusterCount = countDistinctClusters()
 
     print("Labelling complete. The matrix is now:\n")
