@@ -1,5 +1,5 @@
+from printer import printDictionary, print2DMatrix
 from itertools import product
-from gridgenerator import print2DMatrix
 
 
 # The variable which holds the entire matrix.
@@ -119,6 +119,7 @@ def countClusters(matrix):
 
     print("Labelling complete. The matrix is now:\n")
     print2DMatrix(grid)
-    print("\nEncountered {0} clusters of which, {1} were distinct. Their sizes and aliases are as follows:\n\t{2}".format(max(map(max, grid)), clusterCount, clusterAliases))
+    print("\nEncountered {0} clusters of which, {1} were distinct. Their sizes and aliases are as follows:".format(max(map(max, grid)), clusterCount))
+    printDictionary(clusterAliases)
     print("\n")
     delay = input("Press enter to continue...")

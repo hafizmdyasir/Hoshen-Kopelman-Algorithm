@@ -1,14 +1,6 @@
 from random import uniform
 
 
-#A helper method to print a 2D matrix
-def print2DMatrix(matrix):
-    for i in range(len(matrix)):
-        for j in range(len(matrix[i])):
-            print(matrix[i][j], end = " ")
-        print("")
-
-
 # Generate a random grid with a given occupation probability. Note that the probability effects kick in best when size is very large.
 def oneDimensionRandom():
     # A random number being smaller than occupation probability is considered to be the criterion for the site to be occupied.
