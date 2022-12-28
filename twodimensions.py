@@ -38,19 +38,27 @@ def findOriginal(label):
 def unifyClusters(above, left):
     global clusterAliases
 
-    # If the clusters are already linked, just add to the cluster above/left. 
+    # If the clusters are the same, just add to the cluster above/left. 
     if above == left:
         return addToCluster(above)
 
-    # If the two clusters are already linked "behind the scenes", then no need to re-link and add masses of both. Just add one to the mass.
-    # If we add the masses of both clusters in this scenario, it would cause double addition.
-    if findOriginal(left) == findOriginal(above):
-        clusterAliases[findOriginal(above)] += 1
+    originalClusterAbove = findOriginal(above)
+
+    # If the two clusters are already linked "behind the scenes", then no need to re-link and add masses of both. Just add one to the mass. Otherwise, there'd be double addition.
+    if findOriginal(left) == originalClusterAbove:
+        clusterAliases[originalClusterAbove] += 1
         return above
 
-    # The final scenario is when the clusters aren't linked.
-    clusterAliases[findOriginal(above)] += clusterAliases[findOriginal(left)] + 1
-    clusterAliases[left] = -findOriginal(above)
+    # The final scenario is when the clusters aren't linked. We first add the masses.
+    clusterAliases[originalClusterAbove] += clusterAliases[findOriginal(left)] + 1
+
+    # If the cluster on the left has an alias, link that alias to the cluster above.
+    if clusterAliases.get(left, False):
+        previousRoot = clusterAliases[left]
+        if previousRoot < 0:
+            clusterAliases[-previousRoot] = -originalClusterAbove
+    
+    clusterAliases[left] = -originalClusterAbove
     return above
 
 
@@ -122,4 +130,3 @@ def countClusters(matrix):
     print("\nEncountered {0} clusters of which, {1} were distinct. Their sizes and aliases are as follows:".format(max(map(max, grid)), clusterCount))
     printDictionary(clusterAliases)
     print("\n")
-    delay = input("Press enter to continue...")
