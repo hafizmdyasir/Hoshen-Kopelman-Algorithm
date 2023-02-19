@@ -1,6 +1,8 @@
 # Hoshen-Kopelman Algorithm
 This is an implementation of the Hoshen-Kopelman (HoKo) Algorithm for cluster labelling in one-dimensional and two-dimensional matrices. The project is still in its early stages and I am hoping to evolve it into a three-dimensional adaptation.
 
+I also haven't really had time to properly test this code. Perhaps someone out there with a keen eye might spot bugs or logics I have missed. reach out to me and I'll try to resolve as quickly as possible. The primary reason for this repository to exist is that I wanted to have some fun with computational physics.
+
 ## The Algorithm
 The basic idea behind Hoshen-Kopelman algorithm is to perform a [raster scan](https://en.wikipedia.org/wiki/Raster_scan) in a top-down, left-right manner of the two-dimensional array in question to perform cluster counting and labelling. Diagonal percolation is not considered.
 
