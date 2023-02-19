@@ -20,12 +20,13 @@ def createCluster(runningVariable):
 
 # To add to a particular cluster, we must increment its size by 1. 
 # The return value is simply label. 
+# The label we pass here may not be the original one and it is on this function to find the original before increasing the mass.
 def addToCluster(label): 
     clusterAliases[findOriginal(label)] += 1
     return label
 
 
-# The findOriginal method must return the original number to which cluster labelled 'label' belongs.
+# The findOriginal method must return the original number to which, the cluster labelled 'label' belongs.
 # This can be checked for by ensuring that the value corresponding to label in clusterAliases is positive.
 def findOriginal(label):
     while clusterAliases[label] < 0: 

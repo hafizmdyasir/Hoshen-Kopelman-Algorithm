@@ -40,7 +40,7 @@ while True:
     if choice == 3:
         break
 
-    matrix = gridDictionary.get(choice)()
+    matrix = gridDictionary.get(key = choice)()
     if choice in (1.1, 1.2):
         oneDimension.countClusters(matrix)
     else:
